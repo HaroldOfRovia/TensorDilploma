@@ -7,9 +7,12 @@ import { ReactElement } from 'react';
 
 const listPosts: ReactElement[] = [];
 
+/**
+ * @returns 1 новый пост со сучайным изображением и шуткой
+ */
 function AddPost(){
-  const [joke, setJoke] = React.useState("AAA");
-  const [img, setImg] = React.useState("https://geek-jokes.sameerkumar.website/api?format=json");
+  const [joke, setJoke] = React.useState("Ups, something go wrong!");
+  const [img, setImg] = React.useState("");
 
   const getJoke = async () => {
     const res = await fetch("https://geek-jokes.sameerkumar.website/api?format=json");
@@ -32,6 +35,9 @@ function AddPost(){
   return template;
 }
 
+/**
+ * добавляет в глобальный список еще 5 случайных постов и перерисовывает страничку
+ */
 function AddPosts(): void {
   for(let i = 0; i < 5; i++) {
     listPosts.push(<AddPost/>)

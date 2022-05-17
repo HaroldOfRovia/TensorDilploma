@@ -11,6 +11,10 @@ export class UserPost{
         this.pic_url = pic_url;
     }
 
+    /**
+     * @param obj объект с 2 текстовыми полями: адрес изображения и шутка
+     * @returns готовый ReactElement для вставки в html документ
+     */
     static template(obj: UserPost): ReactElement{
         return (
         <article className="article">
@@ -31,7 +35,6 @@ export class UserPost{
             </div>
             <div className='date'>19.03.2022</div>
             </div>
-            
         </article>);
     }
 }
