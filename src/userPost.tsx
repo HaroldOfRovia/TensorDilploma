@@ -16,6 +16,10 @@ export class UserPost{
      * @returns готовый ReactElement для вставки в html документ
      */
     static template(obj: UserPost): ReactElement{
+        const time = new Date();
+        let dd = time.getDate();
+        let mm = time.getMonth()+1;
+        let yy = time.getFullYear();
         return (
         <article className="article">
             <div className='article_header'>
@@ -33,7 +37,7 @@ export class UserPost{
                 </a>
                 <button type='button' className='com_button'>Comments</button>
             </div>
-            <div className='date'>19.03.2022</div>
+            <div className='date'>{dd + '.' + mm + '.' + yy}</div>
             </div>
         </article>);
     }
