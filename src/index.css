@@ -44,6 +44,7 @@
 .icon{
     width: 25px;
     height: 25px;
+    background-image: url("./images/likes.svg");
 }
 
 .friends {
@@ -106,7 +107,8 @@
 }
 
 .img {
-    max-width: 100%;
+    width: 100%;
+    height: auto;
 }
 
 .article_header{
@@ -161,7 +163,7 @@
 }
 
 .description{
-    margin: 0px 10px 10px 10px;
+    margin: 10px;
     font-size: 15px;
 }
 
@@ -190,4 +192,12 @@
     grid-row: 2;
     font-size: small;
     color: rgb(19, 123, 241);
+}
+
+.add_posts{
+    height: 26px;
+    margin-bottom: 10px;
+    border-radius: 13px;
+    border: solid 1px lightgrey;
+    background-color: white;
 }

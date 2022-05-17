@@ -1,9 +1,50 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import likesLogo from './images/likes.svg';
 import profile from './images/home.png'
-import coffee from './images/coffee.jpg'
-import bar from './images/bar.jpg'
+import { UserPost } from './userPost';
+import { ReactElement } from 'react';
 
+const listPosts: ReactElement[] = [];
+
+function AddPost(){
+  const [joke, setJoke] = React.useState("AAA");
+  const [img, setImg] = React.useState("https://geek-jokes.sameerkumar.website/api?format=json");
+
+  const getJoke = async () => {
+    const res = await fetch("https://geek-jokes.sameerkumar.website/api?format=json");
+    const data = await res.json();
+    setJoke(data.joke);
+  };
+  const getImg = async () => {
+    const res = await fetch("https://meme-api.herokuapp.com/gimme/wholesomememes/2");
+    const data = await res.json();
+    setImg(data.memes[0].url);
+  };
+
+  React.useEffect(() => {
+    getJoke();
+    getImg();
+  }, []);
+
+  const post = new UserPost(joke, img);
+  const template = UserPost.template(post);
+  return template;
+}
+
+function AddPosts(): void {
+  for(let i = 0; i < 5; i++) {
+    listPosts.push(<AddPost/>)
+  };
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+
+{AddPosts()}
 
 function App() {
   return (
@@ -38,45 +79,9 @@ function App() {
             </a>
           </div>
         </div>
-        <main className='main'>
-          <article className='article'>
-            <div className='article_header'>
-              <div className='user_pic'/>
-              <h2 className='user_name'>Hlebushek</h2>
-            </div>
-            <img src={coffee} className='img'/>
-            <div className='under_img'>
-              <div className='reaction'>
-                <a href='/'>
-                  <img src={likesLogo} alt="Likes" className='icon'/>
-                </a>
-                <button type='button' className='com_button'>Comments</button>
-              </div>
-              <div className='date'>19.03.2022</div>
-            </div>
-            <div className='description'>
-              Сижу, грущу, пью кофе...
-            </div>
-          </article>
-          <article className='article'>
-            <div className='article_header'>
-              <div className='user_pic'/>
-              <h2 className='user_name'>Hlebushek</h2>
-            </div>
-            <img src={bar} className='img'/>
-            <div className='under_img'>
-              <div className='reaction'>
-                <a href='/'>
-                  <img src={likesLogo} alt="Likes" className='icon'/>
-                </a>
-                <button type='button' className='com_button'>Comments</button>
-              </div>
-              <div className='date'>19.03.2022</div>
-            </div>
-            <div className='description'>
-              Me and boys, hehe
-            </div>
-          </article>
+        <main className='main'>         
+          {listPosts.map((post) => <>{post}</>)}
+        <button onClick={() => AddPosts()} className="add_posts">Еще постов</button>
         </main>
         <div className='copyright'>© 2022 ЧТО-ТОGRAM</div>
       </div>
