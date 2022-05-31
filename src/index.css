@@ -15,7 +15,7 @@
 
 .header {
     display: grid;
-    grid-template-columns: 1fr 350px 320px 300px 1fr;
+    grid-template-columns: 1fr 660px 300px 1fr;
     background-color: wheat;
     grid-column: 1/5;
     height: 60px;

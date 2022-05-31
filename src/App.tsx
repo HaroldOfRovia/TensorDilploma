@@ -1,65 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import likesLogo from './images/likes.svg';
-import profile from './images/home.png'
+import profile from './images/home.png';
+import { setList } from './script';
 import { UserPost } from './userPost';
-import { ReactElement } from 'react';
 
-const listPosts: ReactElement[] = [];
 
-/**
- * @returns 1 новый пост со сучайным изображением и шуткой
- */
-function AddPost(){
-  const [joke, setJoke] = React.useState("Ups, something go wrong!");
-  const [img, setImg] = React.useState("");
-
-  const getJoke = async () => {
-    const res = await fetch("https://geek-jokes.sameerkumar.website/api?format=json");
-    const data = await res.json();
-    setJoke(data.joke);
-  };
-  const getImg = async () => {
-    const res = await fetch("https://meme-api.herokuapp.com/gimme/wholesomememes/2");
-    const data = await res.json();
-    setImg(data.memes[0].url);
-  };
-
-  React.useEffect(() => {
-    getJoke();
-    getImg();
-  }, []);
-
-  const post = new UserPost(joke, img);
-  const template = UserPost.template(post);
-  return template;
-}
-
-/**
- * добавляет в глобальный список еще 5 случайных постов и перерисовывает страничку
- */
-function AddPosts(): void {
-  for(let i = 0; i < 5; i++) {
-    listPosts.push(<AddPost/>)
-  };
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
-}
-
-{AddPosts()}
 
 function App() {
+  let array: UserPost[] = []
+  const [listPosts, setListPosts] = React.useState(array);
+
   return (
       <div className="app">
         <header className="header">
           <a className='header_logo link' href='/'>
             <h1 className='header_title'>Что-тоgram</h1>
           </a>
-          <input type='search' className='header_search' placeholder='Search'/>
           <nav className='nav'>
             <a href='/'>
               <img src={likesLogo} alt="Likes" className='icon'/>
@@ -86,8 +42,13 @@ function App() {
           </div>
         </div>
         <main className='main'>         
-          {listPosts.map((post) => <>{post}</>)}
-        <button onClick={() => AddPosts()} className="add_posts">Еще постов</button>
+          {listPosts.map((post) => 
+          <article className="article" key={post.id}>
+            {UserPost.template(post)}
+            </article>
+          )}
+        <button onClick={() => {setList(listPosts, setListPosts)}} 
+          className="add_posts">Еще постов</button>
         </main>
         <div className='copyright'>© 2022 ЧТО-ТОGRAM</div>
       </div>
