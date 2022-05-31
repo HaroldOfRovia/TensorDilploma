@@ -194,6 +194,15 @@
     color: rgb(19, 123, 241);
 }
 
+.add_posts:hover{
+    background-color: lightgrey;
+    cursor: pointer;
+}
+
+.add_posts:active{
+    background-color: gray;
+}
+
 .add_posts{
     height: 26px;
     margin-bottom: 10px;
