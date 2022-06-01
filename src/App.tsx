@@ -1,14 +1,14 @@
 import React from 'react';
 import likesLogo from './images/likes.svg';
 import profile from './images/home.png';
-import { setList } from './script';
+import { getNewPosts } from './script';
 import { UserPost } from './userPost';
 
 
 
 function App() {
-  let array: UserPost[] = []
-  const [listPosts, setListPosts] = React.useState(array);
+  const posts: UserPost[] = []
+  const [listPosts, setListPosts] = React.useState(posts);
 
   return (
       <div className="app">
@@ -43,11 +43,13 @@ function App() {
         </div>
         <main className='main'>         
           {listPosts.map((post) => 
-          <article className="article" key={post.id}>
-            {UserPost.template(post)}
-            </article>
+            UserPost.template(post)
           )}
-        <button onClick={() => {setList(listPosts, setListPosts)}} 
+        <button onClick={() => {
+          getNewPosts().then((userPosts) => {
+            setListPosts(listPosts.concat(userPosts))
+          })
+        }} 
           className="add_posts">Еще постов</button>
         </main>
         <div className='copyright'>© 2022 ЧТО-ТОGRAM</div>

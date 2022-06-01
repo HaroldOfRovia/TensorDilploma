@@ -28,7 +28,7 @@ export class UserPost{
     static template(obj: UserPost): ReactElement{
         const time = new Date();
         return (
-        <>
+        <article className="article" key={obj.id}>
             <div className='article_header'>
                 <div className='user_pic'/>
                     <h2 className='user_name'>Hlebushek</h2>
@@ -46,6 +46,6 @@ export class UserPost{
                 </div>
                 <div className='date'>{time.getDate() + '.' + time.getMonth()+1 + '.' + time.getFullYear()}</div>
             </div>
-        </>);
+        </article>);
     }
 }
